@@ -14,6 +14,7 @@ import java.util.Map;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
+import wang.com.type.AutoLog;
 import wang.com.type.Autowired;
 import wang.com.type.Component;
 
@@ -114,6 +115,13 @@ public class Factory {
 
 class Interceptor implements MethodInterceptor {
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        return proxy.invokeSuper(obj, args);
+        boolean hasLog = method.getAnnotation(AutoLog.class) != null;
+        if (hasLog) System.out.println(method.getDeclaringClass().getSimpleName() + "::" + method.getName() + " start");
+        
+        Object r = proxy.invokeSuper(obj, args);
+
+        if (hasLog) System.out.println(method.getDeclaringClass().getSimpleName() + "::" + method.getName() + " end");
+
+        return r;
     }
 }
