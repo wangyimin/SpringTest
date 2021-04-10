@@ -8,7 +8,7 @@ public final class App {
     }
 
     public static void main(String[] args) throws Exception{
-        Factory context = new Factory().build("wang.com");
+        Factory context = new Factory().build(App.class.getPackage().getName());
         P p = context.getBean(P.class);
         System.out.println(p.getSName());
     }

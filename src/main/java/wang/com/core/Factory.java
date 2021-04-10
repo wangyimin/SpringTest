@@ -30,7 +30,7 @@ public class Factory {
 
     public Factory build(String packageName){
         if (packageName == null) throw new IllegalArgumentException("Null parameter");
-        
+
         List<Class<?>> lst = getClassesInPackage(packageName);
 
         lst.stream().forEach(el ->{
